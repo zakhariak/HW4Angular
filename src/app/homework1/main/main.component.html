@@ -1,0 +1,22 @@
+<main>
+    <div class="mainBlock">
+        <div class="mainBlock__cenzorWords"><span>Bad words:</span>
+            <p class="mainBlock__cenzorWords_badWords">{{ allBadWords }}</p>
+        </div>
+        <div class="mainBlock__inputGroup">
+            <input class="form-control mainBlock__inputGroup_inputWord"
+                [style.borderColor]="alertInput ? 'red' : '#ced4da'" [(ngModel)]="badWord" name="badWord" type="text"
+                placeholder="{{ inputPlaceholder }}" (click)="defInput()">
+            <button type="button" class="btn btn-warning" (click)="addWord()">Add</button>
+            <button type="button" class="btn btn-danger reset" (click)="resetBadWords()">Reset</button>
+        </div>
+        <div class="mainBlock__textBlock form-group">
+            <textarea class="form-control mainBlock__textBlock_area textarea"
+                [style.borderColor]="alertTextarea ? 'red' : '#ced4da'" id="exampleFormControlTextarea1"
+                [(ngModel)]="textarea" name="textarea" placeholder="{{ textareaPlaceholder }}"
+                (click)="defTextArea()"></textarea>
+        </div>
+        <button type="button" class="btn btn-success btn-lg btn-block mainBlock__btnCenzor"
+            (click)="cenzor()">Cenzor</button>
+    </div>
+</main>
