@@ -1,35 +1,35 @@
 main {
-  width: 84vw;
-}
+  width: 100vw;
 
-main>h2 {
-  color: red;
-}
-
-.searchBlock {
-  display: flex;
-  justify-content: space-between;
-
-  input {
-    width: 78%;
-    position: relative;
+  h2 {
+    color: red;
   }
 
-  span {
-    position: relative;
-    right: 36px;
-    cursor: pointer;
+  .searchBlock {
+    display: flex;
+    justify-content: space-between;
 
-    &:hover {
-      transform: scale(1.2);
+    input {
+      width: 78%;
+      position: relative;
     }
 
-    i {
-      font-size: 24px;
-    }
-  }
+    span {
+      position: relative;
+      right: 36px;
+      cursor: pointer;
 
-  button {
-    width: 20%;
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      i {
+        font-size: 24px;
+      }
+    }
+
+    button {
+      width: 20%;
+    }
   }
 }

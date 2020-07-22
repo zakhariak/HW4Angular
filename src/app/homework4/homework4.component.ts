@@ -66,42 +66,30 @@ export class Homework4Component implements OnInit {
     this.modalRef.hide();
   }
 
-  clickSortFirstName() {
-    this.sortLastName = undefined;
-    this.sortNumber = undefined;
-    this.sortFirstName = !this.sortFirstName;
-    if (this.sortFirstName == undefined) {
-      return this.phoneBook
-    } else if (this.sortFirstName) {
-      return this.phoneBook.sort((a, b) => (a.firstName.toLowerCase() > b.firstName.toLowerCase()) ? 1 : -1);
-    } else {
-      return this.phoneBook.sort((a, b) => (a.firstName.toLowerCase() < b.firstName.toLowerCase()) ? 1 : -1);
+  clickSort(change: number) {
+    let sS: boolean;
+    if (change == 1) {
+      this.sortLastName = undefined;
+      this.sortNumber = undefined;
+      this.sortFirstName = !this.sortFirstName
+      sS = this.sortFirstName;
+    } else if (change == 2) {
+      this.sortFirstName = undefined;
+      this.sortNumber = undefined;
+      this.sortLastName = !this.sortLastName
+      sS = this.sortLastName;
+    } else if (change == 3) {
+      this.sortFirstName = undefined;
+      this.sortLastName = undefined;
+      this.sortNumber = !this.sortNumber
+      sS = this.sortNumber;
     }
-  }
-
-  clickSortLastName() {
-    this.sortFirstName = undefined;
-    this.sortNumber = undefined;
-    this.sortLastName = !this.sortLastName;
-    if (this.sortLastName == undefined) {
+    if (sS == undefined) {
       return this.phoneBook
-    } else if (this.sortLastName) {
-      return this.phoneBook.sort((a, b) => (a.lastName.toLowerCase() > b.lastName.toLowerCase()) ? 1 : -1);
+    } else if (sS) {
+      return this.phoneBook.sort((a, b) => (change == 1) ? ((a.firstName.toLowerCase() > b.firstName.toLowerCase()) ? 1 : -1) : (change == 2) ? ((a.lastName.toLowerCase() > b.lastName.toLowerCase()) ? 1 : -1) : a.phoneNumber - b.phoneNumber);
     } else {
-      return this.phoneBook.sort((a, b) => (a.lastName.toLowerCase() < b.lastName.toLowerCase()) ? 1 : -1);
-    }
-  }
-
-  clickSortNumber() {
-    this.sortFirstName = undefined;
-    this.sortLastName = undefined;
-    this.sortNumber = !this.sortNumber;
-    if (this.sortNumber == undefined) {
-      return this.phoneBook
-    } else if (this.sortNumber) {
-      return this.phoneBook.sort((a, b) => a.phoneNumber - b.phoneNumber);
-    } else {
-      return this.phoneBook.sort((a, b) => b.phoneNumber - a.phoneNumber);
+      return this.phoneBook.sort((a, b) => (change == 1) ? ((a.firstName.toLowerCase() < b.firstName.toLowerCase()) ? 1 : -1) : (change == 2) ? ((a.lastName.toLowerCase() < b.lastName.toLowerCase()) ? 1 : -1) : b.phoneNumber - a.phoneNumber);
     }
   }
 
@@ -125,5 +113,4 @@ export class Homework4Component implements OnInit {
   deleteUser(index: number): void {
     this.phoneBook.splice((index), 1);
   }
-
 }

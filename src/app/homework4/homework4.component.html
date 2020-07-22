@@ -1,56 +1,59 @@
 <main>
-    <h2>My phone book!</h2>
-    <div class="searchBlock py-3 border-top border-bottom">
-        <input class="form-control" type="text" [(ngModel)]="searchPlace" name="searchPlace"
-            placeholder="search text goes here">
-        <span (click)="clearButton()"><i class="uil uil-times"></i></span>
-        <button type="button" class="btn btn-success px-5" (click)="openModal(template)">add phone</button>
+    <div class="container mt-1">
+        <h2>My phone book!</h2>
+        <div class="searchBlock py-3 border-top border-bottom">
+            <input class="form-control" type="text" [(ngModel)]="searchPlace" name="searchPlace"
+                placeholder="search text goes here">
+            <span (click)="clearButton()"><i class="uil uil-times"></i></span>
+            <button type="button" class="btn btn-success px-5" (click)="openModal(template)">add phone</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr class="row-list">
+                    <th scope="col" (click)="clickSort(1)" class="d-flex font-weight-bold">First name
+                        <span><i *ngIf="sortFirstName !== undefined"
+                                [ngClass]="sortFirstName ? 'uil-angle-down' : 'uil-angle-up'" class="uil"></i></span>
+                    </th>
+                    <th scope="col" (click)="clickSort(2)">Last name <span><i *ngIf="sortLastName !==undefined"
+                                [ngClass]="sortLastName ? 'uil-angle-down' : 'uil-angle-up'" class="uil"></i></span>
+                    </th>
+                    <th scope="col" (click)="clickSort(3)">Number <span><i *ngIf="sortNumber !==undefined"
+                                [ngClass]="sortNumber ? 'uil-angle-down' : 'uil-angle-up'" class="uil"></i></span></th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of phoneBook | search:searchPlace let i = index">
+                    <td>{{ user.firstName | titlecase }}</td>
+                    <td>{{ user.lastName | titlecase }}</td>
+                    <td>{{ user.phoneNumber }}</td>
+                    <td><button class="btn btn-warning" (click)="editUser(user, i, template)">Edit</button></td>
+                    <td><button class="btn btn-danger" (click)="deleteUser(i)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-template #template>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left" [innerText]=" !statusEdit ? 'Add phone' : 'Edit phone'">
+                </h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="text" [(ngModel)]="firstName" name="firstName"
+                    placeholder="first name goes here">
+                <input class="form-control my-3" type="text" [(ngModel)]="lastName" name="lastName"
+                    placeholder="second name goes here">
+                <input class="form-control" type="text" [(ngModel)]="phoneNumber" name="phoneNumber"
+                    placeholder="number phone goes here">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary"
+                    (click)=" !statusEdit ? saveAddUser(): saveEditUser()">save</button>
+            </div>
+        </ng-template>
     </div>
-    <table class="table">
-        <thead>
-            <tr class="row-list">
-                <th scope="col" (click)="clickSortFirstName()" class="d-flex font-weight-bold">First name
-                    <span><i *ngIf="sortFirstName !==undefined"
-                            [ngClass]="sortFirstName ? 'uil-angle-down' : 'uil-angle-up'" class="uil"></i></span>
-                </th>
-                <th scope="col" (click)="clickSortLastName()">Last name <span><i *ngIf="sortLastName !==undefined"
-                            [ngClass]="sortLastName ? 'uil-angle-down' : 'uil-angle-up'" class="uil"></i></span></th>
-                <th scope="col" (click)="clickSortNumber()">Number <span><i *ngIf="sortNumber !==undefined"
-                            [ngClass]="sortNumber ? 'uil-angle-down' : 'uil-angle-up'" class="uil"></i></span></th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of phoneBook | search:searchPlace let i = index">
-                <td>{{ user.firstName | titlecase }}</td>
-                <td>{{ user.lastName | titlecase }}</td>
-                <td>{{ user.phoneNumber }}</td>
-                <td><button class="btn btn-warning" (click)="editUser(user, i, template)">Edit</button></td>
-                <td><button class="btn btn-danger" (click)="deleteUser(i)">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <ng-template #template>
-        <div class="modal-header">
-            <h4 class="modal-title pull-left" [innerText]=" !statusEdit ? 'Add phone' : 'Edit phone'">
-            </h4>
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <input class="form-control" type="text" [(ngModel)]="firstName" name="firstName"
-                placeholder="first name goes here">
-            <input class="form-control my-3" type="text" [(ngModel)]="lastName" name="lastName"
-                placeholder="second name goes here">
-            <input class="form-control" type="text" [(ngModel)]="phoneNumber" name="phoneNumber"
-                placeholder="number phone goes here">
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary"
-                (click)=" !statusEdit ? saveAddUser(): saveEditUser()">save</button>
-        </div>
-    </ng-template>
 </main>
